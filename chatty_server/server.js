@@ -31,9 +31,15 @@ wss.on('connection', (socket) => {
     });
   };
   socket.on('message', function incoming(message) {
-    const receivedMessage = JSON.parse(message);
-    receivedMessage.id = uuidv1();
-    wss.broadcast(JSON.stringify(receivedMessage));
+    const incomingMessage = JSON.parse(message);
+    if (incomingMessage.type = "postMessage") {
+      incomingMessage.id = uuidv1();
+      incomingMessage.type = "incomingMessage"
+      wss.broadcast(JSON.stringify(incomingMessage));
+    } else {
+      incomingMessage.type = "incomingNotification"
+      wss.broadcast(JSON.stringify(incomingMessage));
+    }
   });
 
   socket.on('close', () => console.log('Client disconnected'));

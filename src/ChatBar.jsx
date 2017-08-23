@@ -7,11 +7,12 @@ class ChatBar extends Component {
 
     this.state = {
       message: '',
-      user: ''
+      user: '',
+      previous_user: ''
     }
 
     this.onPost = this.onPost.bind(this);
-    this.onUsername = this.onUsername.bind(this);
+    this.onNameChange = this.onNameChange.bind(this);
   }
 
   componentDidMount() {
@@ -20,16 +21,19 @@ class ChatBar extends Component {
     })
   }
 
-  onUsername(event) {
-    this.setState({
-      user: event.target.value
-    })
+  onNameChange(event) {
+    this.setState({previous_user: this.state.user});
+    if (event.key === 'Enter') {
+      this.setState({ user: event.target.value }, function() {
+        this.props.onNameChange({type: "postNotification", "content": (this.state.previous_user + " changed their name to " + this.state.user)});
+      });
+    }
   }
 
   onPost(event) {
     if (event.key === 'Enter') {
       this.setState({ message: event.target.value }, function() {
-        this.props.onNewPost({username: this.state.user || 'Anonymous', content: this.state.message});
+        this.props.onNewPost({type: "postMessage", username: this.state.user || 'Anonymous', content: this.state.message});
       });
     }
   }
@@ -37,7 +41,7 @@ class ChatBar extends Component {
   render() {
     return (
       <footer className="chatbar">
-        <input className="chatbar-username" placeholder="Your Name (Optional)" onBlur={ this.onUsername } defaultValue={ this.props.user } />
+        <input className="chatbar-username" placeholder="Your Name (Optional)" onKeyPress={ this.onNameChange } defaultValue={ this.props.user } />
         <input className="chatbar-message" placeholder="Type a message and hit ENTER" onKeyPress={ this.onPost } />
       </footer>
     );
