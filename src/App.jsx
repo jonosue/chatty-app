@@ -3,8 +3,6 @@ import React, {Component} from 'react';
 import ChatBar from './ChatBar.jsx';
 import MessageList from './MessageList.jsx';
 
-const chattySocket = new WebSocket("ws://localhost:3001")
-
 class App extends Component {
 
   constructor(props) {
@@ -12,22 +10,24 @@ class App extends Component {
 
     this.state = {
       currentUser: {name: "Bob"},
-      messages: [],
-      socket: chattySocket
+      messages: []
     };
 
     this.onNewPost = this.onNewPost.bind(this);
   }
 
   componentDidMount() {
-    this.socket;
+    this.socket = new WebSocket("ws://localhost:3001");
+    this.socket.onmessage = event => {
+      const incomingMessage = JSON.parse(event.data);
+      const newMessage = this.state.messages.concat(incomingMessage);
+      this.setState({messages: newMessage});
+    }
   }
 
   onNewPost(content) {
-    const messages = this.state.messages.concat(content);
-    this.setState({messages: messages});
-    chattySocket.send(JSON.stringify(content));
-  }
+    this.socket.send(JSON.stringify(content));
+  };
 
   render() {
     return (
