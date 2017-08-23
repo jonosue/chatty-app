@@ -14,6 +14,12 @@ class ChatBar extends Component {
     this.onUsername = this.onUsername.bind(this);
   }
 
+  componentDidMount() {
+    this.setState({
+      user: this.props.user
+    })
+  }
+
   onUsername(event) {
     this.setState({
       user: event.target.value
@@ -32,8 +38,8 @@ class ChatBar extends Component {
   render() {
     return (
       <footer className="chatbar">
-        <input className="chatbar-username" placeholder="Your Name (Optional)" onKeyUp={ this.onUsername } value={ this.setState.user }/>
-        <input className="chatbar-message" placeholder="Type a message and hit ENTER" onKeyPress={ this.onPost } value={ this.setState.message }/>
+        <input className="chatbar-username" placeholder="Your Name (Optional)" onBlur={ this.onUsername } defaultValue={ this.props.user } />
+        <input className="chatbar-message" placeholder="Type a message and hit ENTER" onKeyPress={ this.onPost } />
       </footer>
     );
   }
