@@ -29,8 +29,7 @@ class ChatBar extends Component {
   onPost(event) {
     if (event.key === 'Enter') {
       this.setState({ message: event.target.value }, function() {
-        const userValidate = (this.state.user || 'Anonymous');
-        this.props.onNewPost({username: userValidate, content: this.state.message});
+        this.props.onNewPost({username: this.state.user || 'Anonymous', content: this.state.message});
       });
     }
   }

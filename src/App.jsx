@@ -11,7 +11,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      currentUser: 'Bob',
+      currentUser: {name: "Bob"},
       messages: [],
       socket: chattySocket
     };
@@ -36,7 +36,7 @@ class App extends Component {
           <a href="/" className="navbar-brand">Chatty</a>
         </nav>
         <MessageList messages={this.state.messages} />
-        <ChatBar user={this.state.currentUser} onNewPost={this.onNewPost} />
+        <ChatBar user={this.state.currentUser.name} onNewPost={this.onNewPost} />
       </div>
     );
   }
