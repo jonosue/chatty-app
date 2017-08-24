@@ -48,6 +48,7 @@ class ChatBar extends Component {
       this.setState({ message: event.target.value }, function() {
         this.props.onNewPost({type: "postMessage", username: this.state.user || 'Anonymous', content: this.state.message});
       });
+      event.target.value = "";
     }
   }
 
