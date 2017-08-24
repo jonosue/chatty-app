@@ -9,7 +9,8 @@ class App extends Component {
 
     this.state = {
       currentUser: {name: "Bob"},
-      messages: []
+      messages: [],
+      online: 0
     };
 
     this.onNewPost = this.onNewPost.bind(this);
@@ -19,8 +20,14 @@ class App extends Component {
   componentDidMount() {
     this.socket = new WebSocket("ws://localhost:3001");
     this.socket.onmessage = event => {
-      const newMessage = this.state.messages.concat(JSON.parse(event.data));
-      this.setState({messages: newMessage});
+      const receivedMessage = JSON.parse(event.data);
+      if (receivedMessage.type = "onlineStatus") {
+        this.setState({online: Number(receivedMessage.status)});
+      }
+      else {
+        const newMessage = this.state.messages.concat(receivedMessage);
+        this.setState({messages: newMessage});
+      }
     }
   }
 
@@ -37,6 +44,7 @@ class App extends Component {
       <div>
         <nav className="navbar">
           <a href="/" className="navbar-brand">Chatty</a>
+          <span className="navbar-online">{this.state.online} users online</span>
         </nav>
         <MessageList messages={this.state.messages} />
         <ChatBar user={this.state.currentUser.name} onNewPost={this.onNewPost} onNameChange={this.onNameChange} />

@@ -22,7 +22,6 @@ const wss = new SocketServer({ server });
 // the ws parameter in the callback.
 
 wss.on('connection', (socket) => {
-  console.log('Client connected');
   wss.broadcast = function broadcast(data) {
     wss.clients.forEach(function each(client) {
       if (client.readyState === WebSocket.OPEN) {
@@ -41,6 +40,8 @@ wss.on('connection', (socket) => {
       wss.broadcast(JSON.stringify(incomingMessage));
     }
   });
+
+  wss.broadcast(JSON.stringify({type: "onlineStatus", status: wss.clients.size}));
 
   socket.on('close', () => console.log('Client disconnected'));
 });
