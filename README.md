@@ -2,7 +2,7 @@
 
 
 ## Background
-This project was completed as part of the Week 5 requirements while I was a student in the Web Development bootcamp at Lighthouse Labs. Many of the web applications that are commonly used today have real-time functionality where the user does not have to reload the page in order to see updates. Major examples of these include Slack, Twitter and Facebook. The app we created, Chatty, will allow users to communicate with each other without having to register accounts. It will use React, a popular front-end library created and used heavily by Facebook as well as modern tools for Node including Webpack and Babel.
+This project was completed as part of the Week 5 requirements while I was a student in the Web Development bootcamp at Lighthouse Labs. Many of the web applications that are commonly used today have real-time functionality where the user does not have to reload the page in order to see updates. Major examples of these include Slack, Twitter and Facebook. The app I created, Chatty, will allow users to communicate with each other without having to register accounts. It uses React, a popular front-end library created and used heavily by Facebook as well as modern tools for Node including Webpack and Babel.
 
 
 ## Functional Requirements
