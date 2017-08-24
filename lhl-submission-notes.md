@@ -1,0 +1,3 @@
+## NOTES  - Submission 01 <-- CURRENT
+
+- In this version of the submission, I fulfilled all of the baseline functional requirements. I also added a feature of my own choosing: the assignment guidelines tell us to update the username when the user press "ENTER" in the _username_ text field. Rather than just implementing this feature, I also created a function that updates the username whenever the user removes his cursor (aka "onBlur") from the field.
