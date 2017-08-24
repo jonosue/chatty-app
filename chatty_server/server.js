@@ -35,13 +35,15 @@ wss.on('connection', (socket) => {
       incomingMessage.id = uuidv1();
       incomingMessage.type = "incomingMessage"
       wss.broadcast(JSON.stringify(incomingMessage));
+      wss.broadcast(JSON.stringify({id: uuidv1(), type: "onlineStatus", status: wss.clients.size}));
     } else {
       incomingMessage.type = "incomingNotification"
       wss.broadcast(JSON.stringify(incomingMessage));
+      wss.broadcast(JSON.stringify({id: uuidv1(), type: "onlineStatus", status: wss.clients.size}));
     }
   });
 
-  wss.broadcast(JSON.stringify({type: "onlineStatus", status: wss.clients.size}));
+  wss.broadcast(JSON.stringify({id: uuidv1(), type: "onlineStatus", status: wss.clients.size}));
 
   socket.on('close', () => console.log('Client disconnected'));
 });

@@ -23,11 +23,9 @@ class App extends Component {
       const receivedMessage = JSON.parse(event.data);
       if (receivedMessage.type = "onlineStatus") {
         this.setState({online: Number(receivedMessage.status)});
-      }
-      else {
-        const newMessage = this.state.messages.concat(receivedMessage);
-        this.setState({messages: newMessage});
-      }
+      };
+      const newMessage = this.state.messages.concat(receivedMessage);
+      this.setState({messages: newMessage});
     }
   }
 
